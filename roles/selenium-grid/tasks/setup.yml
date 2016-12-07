@@ -1,13 +1,13 @@
 ---
 - name: count the docker containers present
-  shell: docker ps -a|wc -l
+  shell: docker ps -aq|wc -l
   register: countainers
   always_run: yes
   changed_when: no
 
 - name: ensure no docker containers present
-  shell: docker stop $(docker ps -a -q); docker rm $(docker ps -a -q)
-  when: countainers.stdout != '1'
+  shell: docker stop $(docker ps -a -q); docker rm -f $(docker ps -a -q)
+  when: countainers.stdout != '0'
 
 - name: start selenium hub
   docker_container:
