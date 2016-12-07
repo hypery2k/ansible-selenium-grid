@@ -1,5 +1,5 @@
 # Selenium Grid with Docker - Ansible Playbook  
-
+[![Build Status](https://travis-ci.org/ing-bank/ansible-selenium-grid.svg?branch=master)](https://travis-ci.org/ing-bank/ansible-selenium-grid)
 This playbook can be used to create a Selenium Grid on one machine using Docker.
 The purpose of this playbook is to remove all docker containers, and build up the grid from scratch every time this deploy runs. This way, it can also be used to refresh or update the grid.
 
