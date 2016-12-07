@@ -1,0 +1,40 @@
+---
+- name: count the docker containers present
+  shell: docker ps -a|wc -l
+  register: countainers
+  always_run: yes
+  changed_when: no
+
+- name: ensure no docker containers present
+  shell: docker stop $(docker ps -a -q); docker rm $(docker ps -a -q)
+  when: countainers.stdout != '1'
+
+- name: start selenium hub
+  docker_container:
+    name: selenium-hub
+    image: "{{ docker_registry }}/selenium/hub:latest"
+    state: started
+    ports: "{{ hub_port }}:4444"
+
+- name: verify hub is up
+  wait_for:
+    delay: 5
+    host: "{{ inventory_hostname }}"
+    port: "{{ hub_port }}"
+  tags:
+    - test
+
+- name: start selenium-node/chrome
+  docker_container:
+    name: "node-chrome-{{ item }}"
+    image: selenium/node-chrome
+    state: started
+    links: selenium-hub:hub
+  with_sequence: count="{{ chrome_nodes }}"
+
+- name: start selenium-node/firefox
+  docker_container:
+    name: "node-firefox-{{ item }}"
+    image: selenium/node-firefox
+    links: selenium-hub:hub
+  with_sequence: count="{{ firefox_nodes }}"

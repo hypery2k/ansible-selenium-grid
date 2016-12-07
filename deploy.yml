@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Setup Selenium Grid on Target Machine
+  hosts: grid
+  become: True
+
+  roles:
+    - docker
+    - selenium-grid

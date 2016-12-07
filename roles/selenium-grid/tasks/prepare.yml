@@ -1,0 +1,10 @@
+---
+- name: get latest docker images
+  docker_image:
+    name: "{{ docker_registry }}/{{ item }}:latest"
+    state: present
+    pull: yes
+  with_items:
+    - selenium/hub
+    - selenium/node-chrome
+    - selenium/node-firefox

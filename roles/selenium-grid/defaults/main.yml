@@ -1,0 +1,4 @@
+chrome_nodes: 2
+firefox_nodes: 2
+hub_port: 4444
+docker_registry: docker.io
