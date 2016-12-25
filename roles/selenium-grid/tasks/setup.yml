@@ -12,7 +12,7 @@
 - name: start selenium hub
   docker_container:
     name: selenium-hub
-    image: "{{ docker_registry }}/selenium/hub:latest"
+    image: "selenium/hub:latest"
     state: started
     ports: "{{ hub_port }}:4444"
 
