@@ -1,4 +1,8 @@
 ---
+
+- pip:
+    name: docker
+
 - name: get latest docker images
   docker_image:
     name: "{{ item }}:latest"

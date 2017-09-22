@@ -1,25 +1,25 @@
----
-language: python
-python: "2.7"
+services:
+    - docker
 
-# Use the new container infrastructure
-sudo: false
+cache:
+  directories:
+    - $HOME/.cache/pip
 
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+    - os: osx
+      osx_image: xcode8.3
 
-install:
-  # Install ansible & ansible-lint
-  - pip install ansible
-  - pip install ansible-lint
 
-  # Check ansible version
-  - ansible --version
+
+before_install:
+    - test/travis/before_install.sh
 
 script:
-  # Basic role syntax check
-  - ansible-playbook deploy.yml -i inventory.ini --syntax-check
-  - ansible-lint deploy.yml
+    - test/travis/script.sh
+
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/

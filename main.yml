@@ -1,0 +1,33 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: Setup Selenium Grid on Target Machine
+  become: true
+  become_method: sudo
+  pre_tasks:
+    - name: Activate pip on macOS
+      shell: easy_install pip
+  roles:
+    - role: geerlingguy.pip
+      become: true
+      become_method: sudo
+      when: ansible_os_family != 'Darwin'
+    - role:  geerlingguy.docker
+      become: true
+      become_method: sudo
+      when: ansible_os_family != 'Darwin'
+    - role: geerlingguy.homebrew
+      become: true
+      become_method: sudo
+      when: ansible_os_family == 'Darwin'
+    - { role: selenium-grid }
+
+  vars:
+    #java_version: 8
+    selenium_version: 2.48.2
+    homebrew_taps:
+      - homebrew/core
+      - caskroom/cask
+    homebrew_cask_appdir: /Applications
+    homebrew_cask_apps:
+      - docker

@@ -1,0 +1,50 @@
+---
+
+dependencies: [
+  - src: geerlingguy.homebrew
+    version: 2.3.1
+  - src: geerlingguy.docker
+    version: 2.1.0
+  - src: geerlingguy.pip
+    version: 1.0.0
+]
+
+galaxy_info:
+    author: hypery2k
+    description: Selenium Grid for CentOS/Debian/Ubuntu/Suse/MacOSX
+    license: MIT
+
+    min_ansible_version: 2.0.0
+
+    platforms:
+        - name: Ubuntu
+          versions:
+              - precise
+              - trusty
+              - xenial
+              - yakkety
+              - zesty
+        - name: Debian
+          versions:
+              - wheezy
+              - jessie
+              - stretch
+        - name: EL
+          versions:
+              - 6
+              - 7
+        - name: opensuse
+          versions:
+              - all
+        - name: SLES
+          versions:
+              - all
+        - name: Darwin
+          versions:
+              - all
+
+    galaxy_tags:
+        - development
+        - system
+        - selenium
+        - testing
